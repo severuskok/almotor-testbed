@@ -27,7 +27,7 @@ def human_size(num_bytes: int, precision: int = 1) -> str:
 
     size = float(num_bytes)
     unit = 0
-    while size > STEP and unit < len(UNITS) - 1:
+    while size >= STEP and unit < len(UNITS) - 1:
         size /= STEP
         unit += 1
 
