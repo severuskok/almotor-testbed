@@ -27,7 +27,10 @@ def human_size(num_bytes: int, precision: int = 1) -> str:
 
     size = float(num_bytes)
     unit = 0
-    while size > STEP and unit < len(UNITS) - 1:
+    # Step up while the value still fills a whole unit. This has to be >=, not
+    # >, so that exactly STEP bytes rolls over: 1024 is 1.0 KB, not 1024 B, and
+    # 1024 KB is 1.0 MB, not 1024.0 KB.
+    while size >= STEP and unit < len(UNITS) - 1:
         size /= STEP
         unit += 1
 
