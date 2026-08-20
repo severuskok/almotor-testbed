@@ -19,6 +19,17 @@ def test_megabytes_and_up():
     assert human_size(3_000_000_000) == "2.8 GB"
 
 
+def test_exact_unit_boundaries_roll_over():
+    assert human_size(1024) == "1.0 KB"
+    assert human_size(1024 * 1024) == "1.0 MB"
+    assert human_size(1024 * 1024 * 1024) == "1.0 GB"
+
+
+def test_just_below_boundary_stays_in_lower_unit():
+    assert human_size(1023) == "1023 B"
+    assert human_size(1024 * 1024 - 1) != "1.0 MB"
+
+
 def test_precision_is_configurable():
     assert human_size(2500, precision=3) == "2.441 KB"
 
